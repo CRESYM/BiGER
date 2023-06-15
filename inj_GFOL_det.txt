@@ -1,0 +1,308 @@
+inj
+GFOL_det
+
+%data
+
+R		    ! phase reactor resistance (pu)
+L		    ! phase reactor inductance (pu)
+r           ! ratio of ideal transformer
+Snom	    ! nominal apparent power (MVA)
+Rc          ! resistance used in compensated voltage (pu)
+Xc          ! reactance used in compensated voltage (pu)
+Kp		    ! current control : P gain
+Ki		    ! current control : I gain
+Tlpf        ! measurement time constant (low pass filter)
+Kpp 	    ! active power control: proportional gain
+Kip 	    ! active power control: integral gain
+Trlim       ! time constant used to limit the rate of increase of active power
+dPdt_min    ! min rate of change of active power
+dPdt_max    ! max rate of change of active power
+Kpv 	    ! reactive power control: proportional gain
+Kiv 	    ! reactive power control: integral gain
+tau         ! response time of PLL (s)
+Vpllb       ! AC voltage threshold below which PLL is blocked (pu)
+Vpllu       ! AC voltage threshold above which PLL is unblocked (pu)
+Imax        ! maximum current (pu)
+Vs1         ! AC voltage threshold below which dynamic reactive support starts (pu)
+Vs2         ! AC voltage threshold below which reactive support is maximum (pu) (Vs2 < Vs1)
+iqmax	    ! (upper and lower) limit on quadrature current when dynamic reactive support is not activated (pu)      
+vqswitch    ! switch: 1 = voltage control, 0 = reactive power control
+
+%parameters
+
+k={r}*sbase/{Snom}                            ! conversion factor of currents
+P0 = ([vy]*[iy]+[vx]*[ix])*sbase/{Snom} 	  ! active power setpoint (pu on Snom base)
+Q0 = ([vy]*[ix]-[vx]*[iy])*sbase/{Snom} 	  ! reactive power setpoint (pu on Snom base)
+Vc0= dsqrt( ( ([vx]/{r}) + {Rc}*[ix]*{k} - {Xc}*[iy]*{k} )**2+ ( ([vy]/{r}) + {Rc}*[iy]*{k} + {Xc}*[ix]*{k} )**2)   ! setpoint of compensated voltage (pu)
+Imin= - {Imax}
+iq1max = min({iqmax}, dsqrt({Imax}**2-({r}*{P0})**2/([vx]**2+[vy]**2)) )
+
+%states
+
+wref = 1.                          ! angular speed of reference axes (pu)
+ixt = [ix]*{k}                     ! ix on converter side of ideal transformer, in pu on Snom base 
+iyt = [iy]*{k}                     ! iy on converter side of ideal transformer, in pu on Snom base
+ 
+mult_pll = 1.		               ! factor to freeze the PLL
+w_pll = [wref]	                   ! angular speed of PLL
+delta_w_pll = 0.	               ! angular speed deviation of PLL
+delta_w_pll_f = [delta_w_pll]	   ! angular speed deviation of PLL multiplied by freezing multiplier
+theta_pll = atan2([vy],[vx])	   ! phase angle of voltage estimated by PLL in rad
+
+did_dt = 0                          
+diq_dt = 0
+id =   [ixt]*cos([theta_pll]) + [iyt]*sin([theta_pll]) ! id current
+iq = - [ixt]*sin([theta_pll]) + [iyt]*cos([theta_pll]) ! iq current
+V = dsqrt([vx]**2+[vy]**2)                             ! voltage at PCC
+vd = [V]                                               ! vd voltage
+vq = 0.                                                ! vq voltage
+vqf = 0.                                               ! vq voltage multiplied by freezing factor		  
+vmd = [V]/{r} + {R}*[id] - {L}*[iq]                    ! d component of modulated voltage
+vmq =           {R}*[iq] + {L}*[id]                    ! q component of modulated voltage
+ 
+delta_id = 0.                                          ! error signal of d current control
+Md = {R}*[id]                                          ! output of PI controller - q axis
+Idmax_stat =  sqrt(max({Imax}**2-[iq]**2,0.d0)) 	   ! maximum id current - static value 
+Idmax = [Idmax_stat]                                   ! maximum id current - dynamic value 
+Idmin = -[Idmax]									   ! minimum id current
+P = {P0}					                           ! active power produced
+Pfil = [P]                                             ! filtered active power produced
+delta_p = 0.									       ! error signal of active power
+id_int = [id]                                          ! integrator of the PI controller
+id_pi = [id]                                           ! id current reference at the output of the PI controller
+idref = [id]                                           ! reference value of id
+
+delta_iq = 0.                                          ! error signal of q current control
+Mq = {R}*[iq]                                          ! output of PI controller - q axis
+Vc = {Vc0}                                             ! compensated voltage to control     
+Vcfil = [Vc]                                           ! filtered compensated voltage to control        
+Q = {Q0}                                               ! reactive power produced      
+Qfil = [Q]        	                                   ! filtered reactive power produced
+deltaV = 0.		                                       ! error signal of voltage or reactive power 
+mult_V = 1.                                            ! factor to freeze the PI controller
+iq_1_unlim = [iq]                                      ! unlimited component 1 of iq 
+iq_1 = [iq]                                            ! limited component 1 of iq
+iq_2 = 0.                                              ! component 2 of iq
+iq_tot_unlim = [iq]                                    ! unlimited total q current
+iqref = [iq]                                           ! q current reference   
+
+P_MW = {P0}*{Snom}						  ! OBSERVABLE:  active power produced (MW)
+Q_Mvar = {Q0}*{Snom}                      !              reactive power produced (Mvar)
+I = sqrt([ixt]**2+[iyt]**2)               !              current (pu)
+Vm = dsqrt([vmd]**2+[vmq]**2)             !              modulated voltage Vm (pu)
+Qconv = ([vmq]*[id]-[vmd]*[iq])*{Snom}    !              reactive power produced (Mvar)
+theta_pll_deg = [theta_pll]*180/pi        !              phase angle of voltage estimated by PLL (deg)
+
+%observables
+
+P_MW
+Q_Mvar
+Vc
+Vm
+I
+w_pll
+theta_pll_deg
+mult_pll
+Idmax
+id_pi
+idref
+id
+iq_1
+iq_2
+iqref
+iq
+Qconv
+
+%models
+
+& algeq                         ! speed of reference axes
+equalstr(omega_ref,'COI')*([wref]-[omega])+equalstr(omega_ref,'SYN')*([wref]-1.d0)
+
+& algeq                         ! ixt=ix on converter side of ideal transformer, in pu on Snom base
+[ixt] - [ix]*{k}
+& algeq                         ! iyt=iy on converter side of ideal transformer, in pu on Snom base
+[iyt] - [iy]*{k}
+
+& algeq                         ! voltage at PCC
+dsqrt([vx]**2+[vy]**2) - [V]
+
+& algeq							! phase reactor dynamics - d axis
+(2.*pi*fnom/{L})*([vmd]-[vd]/{r}-{R}*[id]+[w_pll]*{L}*[iq]) - [did_dt]
+& int
+did_dt
+id
+1.d0
+
+& algeq                         ! phase reactor dynamics - q axis
+(2.*pi*fnom/{L})*([vmq]-[vq]/{r}-{R}*[iq]-[w_pll]*{L}*[id]) - [diq_dt]
+& int
+diq_dt
+iq
+1.d0
+
+& algeq							! id function of ixt and iyt
+-[id] + [ixt]*cos([theta_pll]) + [iyt]*sin([theta_pll])
+& algeq                         ! iq function of ixt and iyt
+-[iq] - [ixt]*sin([theta_pll]) + [iyt]*cos([theta_pll])
+
+& algeq 						! vd function of vx and vy
+-[vd] + [vx]*cos([theta_pll]) + [vy]*sin([theta_pll])
+& algeq                         ! vq function of vx and vy
+-[vq] - [vx]*sin([theta_pll]) + [vy]*cos([theta_pll])
+
+& hyst                              ! PLL: hysteresis
+V
+mult_pll
+{Vpllu}
+0.
+1.
+{Vpllb}
+1.
+0.
+1.
+& algeq                             !      angular speed deviation
+-[delta_w_pll] + ([w_pll]-[wref])*2*fnom*pi
+& algeq                             !      vq multiplied by hysteresis
+[vqf] - [vq]*[mult_pll]
+& pictl                             !      PI controller						
+vqf
+w_pll
+25/(2*fnom*pi*({tau})**2)
+10/(2*fnom*pi*{tau})
+& algeq                             !      freezing of theta_pll
+[delta_w_pll_f] - [mult_pll]*[delta_w_pll]
+& int                               !      integrate to obtain theta_pll
+delta_w_pll_f
+theta_pll
+1.d0
+
+& algeq							    ! current controller - d axis
+-[id] + [idref] - [delta_id]
+& pictl
+delta_id
+Md
+{Ki}
+{Kp}
+& algeq
+[vd]/{r} - [w_pll]*{L}*[iq] + [Md] - [vmd]
+
+& algeq                             ! current controller - q axis
+-[iq] + [iqref] - [delta_iq]
+& pictl
+delta_iq
+Mq
+{Ki}
+{Kp}
+& algeq
+[w_pll]*{L}*[id] + [Mq] - [vmq]
+
+& algeq                             ! maximum direct current   static limit on current
+dsqrt(max({Imax}**2-[iq]**2.d0,0.d0)) - [Idmax_stat]
+& tf1p2lim                          !                          limit on rate of increase of limit
+Idmax_stat
+Idmax
+1
+{Trlim}
+{Imin}
+{Imax}
+{dPdt_min}
+{dPdt_max}
+& algeq                             ! minimum direct current
+-[Idmax] - [Idmin]
+
+& algeq                             ! control of active power: computation of active power (pu Snom base)
+([vx]*[ix] + [vy]*[iy])*sbase/{Snom} - [P]
+& tf1p                              !                          low-pass filter on P
+P
+Pfil
+1.
+{Tlpf}
+& algeq                             !                          error signal of active power
+{P0} - [Pfil] - [delta_p]
+& invlim                            !                          integrator of PI controller
+delta_p
+Idmin
+Idmax
+id_int
+1./{Kip}
+& algeq                             !                          output of PI controller
+{Kpp}*[delta_p]+[id_int]-[id_pi] 
+& limvb                             !                          limit on output of PI controller
+id_pi
+Idmin
+Idmax
+idref
+
+& algeq                             ! control of voltage/reactive power: computation of compensated voltage (pu)
+dsqrt( ( ([vx]/{r}) + {Rc}*[ixt] - {Xc}*[iyt] )**2 + ( ([vy]/{r}) + {Rc}*[iyt] + {Xc}*[ixt] )**2 ) - [Vc]
+& tf1p                              !                                    low-pass filter on Vc
+Vc
+Vcfil
+1.
+{Tlpf}
+& algeq                             !                                    computation of reactive power (pu Snom base)
+([vy]*[ix] - [vx]*[iy])*sbase/{Snom} -[Q]
+& tf1p                              !                                    low-pass filter on Q
+Q
+Qfil
+1.
+{Tlpf}
+& pwlin4                            !                                    multiplier to freeze the PI controller
+V
+mult_V
+0.
+0.
+{Vs2}
+0.
+{Vs2}
+1.
+2.
+1.
+& algeq                             !                                    error signal on voltage or reactive power
+{vqswitch}*([Vcfil] - {Vc0})*[mult_V] + (1-{vqswitch})*([Qfil] - {Q0})*[mult_V] - [deltaV]
+& pictllim                          !                                    PI controller giving iq_1
+deltaV
+iq_1_unlim
+{Kiv}
+{Kpv}
+-{iq1max}
+{iq1max}
+& lim                               !                                    limit on iq_1
+iq_1_unlim
+iq_1
+-{iq1max}
+{iq1max}
+
+& pwlin4                            !                                    dynamic reactive power support giving iq_2
+V
+iq_2
+-1.d0
+- {Imax}
+{Vs2}
+- {Imax}
+{Vs1}
+0.
+2*{Vs1}
+0.
+
+& algeq								!                                    iq_tot = iq_1 + i_q_2
+[iq_1] + [iq_2] - [iq_tot_unlim]
+& lim                               !                                    limit on quadrature current
+iq_tot_unlim
+iqref
+-{Imax}
+{Imax}
+
+
+& algeq                             ! OBSERVABLE: active power produced (MW)
+[P_MW] - [P]*{Snom}
+& algeq
+dsqrt([vmd]**2+[vmq]**2) - [Vm]
+& algeq                             !             reactive power produced (Mvar)
+[Q_Mvar] - [Q]*{Snom}
+& algeq                             !             current in VSC (pu on Snom base)
+[I] - sqrt([ixt]**2+[iyt]**2)
+& algeq
+([vmq]*[id]-[vmd]*[iq])*{Snom} - [Qconv]
+& algeq
+[theta_pll]*180/pi - [theta_pll_deg]
