@@ -30,13 +30,13 @@ INJEC  GFOL_det   HVDC2       B     1.    1.   0.   0.   0.005  0.15   0.99   17
 # WP2 IN GRID FORMING MODE
 
 #               name    bus    FP    FQ    P    Q    Rpr     Lpr     r    Snom    H    D     Kp     Tpll   R    Imax    Kcs    Tcs  
-#INJEC   GFOR    WP2      F     1.    1.    0.   0.  0.005   0.12   1.00  2400.   5.   0.  0.01592    0.05   25.  1.00   2.05  0.00 ;
+#INJEC   GFOR    WP2      F     1.    1.    0.   0.  0.005   0.12   1.00  2400.   5.   0.  0.01592    0.05   25.  1.00   2.05  0.0005 ;  Kp=0.01592  D=300.
 
 
 # HVDC2 IN GRID FORMING MODE
 
 #                name   bus    FP    FQ    P    Q    Rpr     Lpr     r    Snom    H    D     Kp     Tpll   R    Imax    Kcs    Tcs     
-#INJEC    GFOR   HVDC2     B     1.    1.    0.   0.  0.005   0.15   0.99  1700.   5.   0.  0.01592   0.05   25.  1.00   2.05  0.00 ;
+#INJEC    GFOR   HVDC2     B     1.    1.    0.   0.  0.005   0.15   0.99  1700.   5.   0.  0.01592   0.05   25.  1.00   2.05  0.0005 ; Kp=0.01592  D=300.
      
 # Thévenin equivalent
 
