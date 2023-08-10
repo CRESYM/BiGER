@@ -1,0 +1,70 @@
+\documentclass{report}
+\usepackage{graphicx} % Required for inserting images
+
+\title{BiGER project: State of the art}
+\author{Mathilde Bongrain, Ghassen Nakti, Rashmi Prasad}
+\date{August 2023}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+Due to the massive development of power-electronics devices (PED), the limits between the different power system modelling domains are becoming more and more questionable. 
+Indeed, these components introduce fast dynamics in the system that both interact with the classical components' slow dynamics but also between themselves \cite{b1}. 
+Moreover, interactions with network elements are also to be considered. More specifically, in presence of PED and for all kind of events (small or big disturbances), the electromagnetical components dynamics are interacting with the electromechanical components dynamics through the whole system, leading to broad-band signals  for voltage, frequency and current. 
+The phasor representation can’t correctly interpret those signals and can lead to significant errors between the simulated and the real signal.
+
+This observation doesn’t only concern the classical stability studies (frequency stability, small-signal stability, transient stability, voltage stability) but also new stability types (converter-driven stability, electric resonance stability) in systems involving both classical generation units and converter interface generation (CIG).
+On the other hand, doing large scale long term EMT simulations is impossible for several reasons: fine tuning of many parameters/inputs not compatible with operational studies (automatic cyclic sequences), long computation time, high frequency dynamics covered by EMT models remain local and don’t affect the whole system stability, artifacts in simulated signals.
+
+To ensure the stability of future large power systems, it is thus necessary to find new simulation approaches capturing those new dynamics while avoiding EMT drawbacks. To the extent possible, these new methods should be reliable, scalable, robust, transparent and flexible.
+
+In this document, the aim is to present the state of the art of the RMS limitations as a compilation of :
+\begin{itemize}
+    \item a review of the worldwide relevant literature, 
+    \item a report of bilateral exchanges with TSOs for the current practices and real network experience
+\end{itemize} 
+
+\chapter{Instabilities review}
+\section{Overview of instabilities classifications}
+reminder of the physical phenomena of each instability, 
+which ones are of importance for the RMS limitations, 
+for each, what is the impact/interaction of IBR on the existing instability
+\section{Rotor angle stability}
+\subsection{Transient}
+\subsection{Small signal}
+
+\section{Voltage stability}
+
+\section{Converter driven stability}
+\section{Impact/ interaction of IBR with existing network, generation and other IBR}
+
+
+\chapter{Limitations of RMS approach}
+\section{Reminder of the RMS approach}
+\section{Theoretical explanation of the limitation}
+\section{Explanatory variables}
+for each instability, what are the network conditions/configurations that leads to a wrong assessment in RMS?
+\section{Real events}
+ex post analysis of real events that shows that RMS can't reproduce the problem.
+what real events tell us that the theoretical approach can't tell? limitations of small test cases
+\section{Assessment criteria for instabilities}
+existing and new instabilities' assessment criteria. 
+
+\section*{Literature limitations and way forward}
+new criteria 
+new proposed method (sensitivity analysis on industrial criteria)
+identification of explanatory on real use cases
+
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{IEEEabrv,Literature}
+
+% \begin{thebibliography}{00}
+% \bibitem{b1} Mario Paolone, Trevor Gaunt, Xavier Guillaud, Marco Liserre, Sakis Meliopoulos, Antonello Monti, Thierry Van Cutsem, Vijay Vittal, Costas Vournas, “Fundamentals of power systems modelling in the presence of converter-interfaced generation”, Electric Power Systems Research, Volume 189, 2020, 106811, ISSN 0378-7796, https://doi.org/10.1016/j.epsr.2020.106811.
+% \end{thebibliography}
+\vspace{12pt}
+
+
+\end{document}
