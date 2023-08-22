@@ -1,0 +1,7 @@
+{
+  "dfl-config": {
+    "OutputDir": "./vsc",
+    "AutomaticSlackBusOn": false,
+    "InfiniteReactiveLimits": false
+  }
+}
