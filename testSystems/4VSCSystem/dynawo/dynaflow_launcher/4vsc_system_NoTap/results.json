@@ -1,0 +1,20 @@
+{
+    "version": "1.2",
+    "isOK": "true",
+    "metrics": {
+        "useInfiniteReactiveLimits": "false",
+        "isSVCRegulationOn": "true",
+        "isShuntRegulationOn": "true",
+        "isAutomaticSlackBusOn": "false"
+    },
+    "componentResults": [
+        {
+            "connectedComponentNum": "0",
+            "synchronousComponentNum": "0",
+            "status": "CONVERGED",
+            "iterationCount": "0",
+            "slackBusId": "_BUS__C_TN",
+            "slackBusActivePowerMismatch": "0"
+        }
+    ]
+}
