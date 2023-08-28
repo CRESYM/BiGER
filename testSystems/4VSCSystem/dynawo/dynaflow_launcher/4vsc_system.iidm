@@ -18,7 +18,7 @@
             <iidm:busBreakerTopology>
                 <iidm:bus id="_BUS__A_TN" v="403.029080" angle="2.384920"/> 
             </iidm:busBreakerTopology>
-            <iidm:generator id="_GEN__1_HVDC" name="HVDC1" energySource="OTHER" minP="-1200" maxP="1200" voltageRegulatorOn="true" targetP="1200" targetQ="360" targetV="403.029080" bus="_BUS__A_TN" connectableBus="_BUS__A_TN" p="1125.2" q="102">
+            <iidm:generator id="_GEN__1_HVDC" name="HVDC1" energySource="OTHER" minP="-1200" maxP="1200" voltageRegulatorOn="true" targetP="-1125.2" targetQ="-102" targetV="403.029080" bus="_BUS__A_TN" connectableBus="_BUS__A_TN" p="1125.2" q="102">
                 <iidm:minMaxReactiveLimits minQ="-999" maxQ="360"/>
             </iidm:generator>
         </iidm:voltageLevel>
@@ -51,7 +51,7 @@
             <iidm:busBreakerTopology>
                 <iidm:bus id="_BUS__B_TN" v="402.166960" angle="2.066869"/> 
             </iidm:busBreakerTopology>
-            <iidm:generator id="_GEN__2_HVDC" name="HVDC2" energySource="OTHER" minP="-1700" maxP="1700" voltageRegulatorOn="true" targetP="1700" targetQ="504" targetV="402.166960" bus="_BUS__B_TN" connectableBus="_BUS__B_TN" p="1607" q="237.4">
+            <iidm:generator id="_GEN__2_HVDC" name="HVDC2" energySource="OTHER" minP="-1700" maxP="1700" voltageRegulatorOn="true" targetP="-1607" targetQ="-237.4" targetV="402.166960" bus="_BUS__B_TN" connectableBus="_BUS__B_TN" p="1607" q="237.4">
                 <iidm:minMaxReactiveLimits minQ="-999" maxQ="504"/>
             </iidm:generator>
         </iidm:voltageLevel>
@@ -84,10 +84,10 @@
             <iidm:busBreakerTopology>
                 <iidm:bus id="_BUS__C_TN" v="400" angle="0.0"/>
             </iidm:busBreakerTopology>
-            <iidm:generator id="_GEN__3_EQUIV" name="Slack" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="9999" targetQ="9999" targetV="400" bus="_BUS__C_TN" connectableBus="_BUS__C_TN" p="-1168.7" q="-177.6">
+            <iidm:generator id="_GEN__3_EQUIV" name="Slack" energySource="OTHER" minP="-9999" maxP="9999" voltageRegulatorOn="true" targetP="0" targetQ="0" targetV="400" bus="_BUS__C_TN" connectableBus="_BUS__C_TN" p="0" q="0">
                 <iidm:minMaxReactiveLimits minQ="-9999" maxQ="9999"/>
             </iidm:generator>
-             <!-- <iidm:load id="_LOAD__1" name="LOAD1" loadType="UNDEFINED" p0="1168.7" q0="177.6" bus="_BUS__C_TN" connectableBus="_BUS__C_TN" p="1168.7" q="177.6"/> -->
+             <iidm:load id="_LOAD__1" name="LOAD1" loadType="UNDEFINED" p0="1168.7" q0="177.6" bus="_BUS__C_TN" connectableBus="_BUS__C_TN" p="1168.7" q="177.6"/>
         </iidm:voltageLevel>
     </iidm:substation>
 
@@ -97,7 +97,7 @@
             <iidm:busBreakerTopology>
                 <iidm:bus id="_BUS__E_TN" v="235.701450" angle="10.826292"/> 
             </iidm:busBreakerTopology>
-            <iidm:generator id="_GEN__4_WP1" name="WP1" energySource="OTHER" minP="-2400" maxP="2400" voltageRegulatorOn="false" targetP="2400" targetQ="720" targetV="225" bus="_BUS__E_TN" connectableBus="_BUS__E_TN" p="-1991.9" q="146.6">
+            <iidm:generator id="_GEN__4_WP1" name="WP1" energySource="OTHER" minP="-2400" maxP="2400" voltageRegulatorOn="false" targetP="1991.9" targetQ="-146.6" targetV="225" bus="_BUS__E_TN" connectableBus="_BUS__E_TN" p="-1991.9" q="146.6">
                 <iidm:minMaxReactiveLimits minQ="-999" maxQ="720"/>
             </iidm:generator>
             <iidm:shunt id="_SHUNT1__E_SS" name="SHUNT E_SS" sectionCount="1" voltageRegulatorOn="false" bus="_BUS__E_TN" connectableBus="_BUS__E_TN" q="-329.2">
@@ -112,7 +112,7 @@
             <iidm:busBreakerTopology>
                 <iidm:bus id="_BUS__F_TN" v="224.939498" angle="11.353666"/> 
             </iidm:busBreakerTopology>
-            <iidm:generator id="_GEN__5_WP2" name="WP2" energySource="OTHER" minP="-2400" maxP="2400" voltageRegulatorOn="true" targetP="2400" targetQ="720" targetV="224.939498" bus="_BUS__F_TN" connectableBus="_BUS__F_TN" p="-1991.7" q="177.8">
+            <iidm:generator id="_GEN__5_WP2" name="WP2" energySource="OTHER" minP="-2400" maxP="2400" voltageRegulatorOn="true" targetP="1991.7" targetQ="-177.8" targetV="224.939498" bus="_BUS__F_TN" connectableBus="_BUS__F_TN" p="-1991.7" q="177.8">
                 <iidm:minMaxReactiveLimits minQ="-999" maxQ="720"/>
             </iidm:generator>
             <iidm:shunt id="SHUNT F_SS" name="SHUNT F_SS" sectionCount="1" voltageRegulatorOn="false" bus="_BUS__F_TN" connectableBus="_BUS__F_TN" q="-199.9">
