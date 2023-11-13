@@ -27,7 +27,9 @@ import Modelica;
   udPcc0Pu=SingleVSC_INIT.udPcc0Pu,
   uqPcc0Pu=SingleVSC_INIT.uqPcc0Pu,
   idConv0Pu=SingleVSC_INIT.idConv0Pu,
-  iqConv0Pu=SingleVSC_INIT.iqConv0Pu) annotation(
+  iqConv0Pu=SingleVSC_INIT.iqConv0Pu,
+  udConvRef0Pu=SingleVSC_INIT.udConvRef0Pu,
+  uqConvRef0Pu=SingleVSC_INIT.uqConvRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {0, 20}, extent = {{-12, -12}, {12, 12}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.Converters.GridFollowingControl gridFollowingControl(
@@ -71,6 +73,8 @@ import Modelica;
   iqConv0Pu=SingleVSC_INIT.iqConv0Pu,
   udPcc0Pu=SingleVSC_INIT.udPcc0Pu,
   uqPcc0Pu=SingleVSC_INIT.uqPcc0Pu,
+  udConvRef0Pu=SingleVSC_INIT.udConvRef0Pu,
+  uqConvRef0Pu=SingleVSC_INIT.uqConvRef0Pu,
   IP0Pu= SingleVSC_INIT.IP0Pu,
   InomPu=SingleVSC_INIT.InomPu,
   KpPLL= SingleVSC_INIT.KpPLL,

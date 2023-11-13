@@ -17,7 +17,7 @@ import Dynawo;
   parameter Types.PerUnit L= 0.15  "Transformer inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit Rc= 0.005 "resistance value from converter terminal to PCC in pu (base UNom, SNom)";
   parameter Types.PerUnit Xc= 0.15  "reactance value from converter terminal to PCC in pu (base UNom, SNom)";
-  parameter Types.PerUnit InomPu=1.5 "Converter nominal current in pu";
+  parameter Types.PerUnit InomPu=1 "Converter nominal current in pu";
   parameter Types.PerUnit ImaxPu= 1 "Converter maximum current in pu";
   parameter Types.PerUnit IqmaxPu= 99 "For cases with limited capability of voltage control the minimum between Iqmax and Iq1max is considered";
   
@@ -80,6 +80,8 @@ import Dynawo;
   parameter Types.PerUnit uqConv0Pu = -sin(thetaPLL0Pu)*uConv0Pu.re + cos(thetaPLL0Pu)* uConv0Pu.im;
   parameter Types.PerUnit idConv0Pu= ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*sin(thetaPLL0Pu)* iPcc0Pu.im;
   parameter Types.PerUnit iqConv0Pu= -ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.im;
+  parameter Types.PerUnit udConvRef0Pu=udConv0Pu;
+  parameter Types.PerUnit uqConvRef0Pu=uqConv0Pu;
   
   /* Infinite bus */
   parameter Types.VoltageModulePu UBus0Pu= 1 "Infinite bus constant voltage module in pu (base UNom)";

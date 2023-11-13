@@ -35,9 +35,9 @@ model CurrentLoopGFL "Current loop control for grid following converters: derive
   Modelica.Blocks.Interfaces.RealInput uqPccPu(start = uqPcc0Pu) "q-axis voltage at the converter's capacitor in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-150, -130}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {50,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 
-  Modelica.Blocks.Interfaces.RealOutput udConvRefPu "d-axis modulation voltage reference in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput udConvRefPu(start=udConvRef0Pu) "d-axis modulation voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, 86}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput uqConvRefPu "q-axis modulation voltage reference in pu (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealOutput uqConvRefPu(start=uqConvRef0Pu)"q-axis modulation voltage reference in pu (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {150, -86}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gaind(k = Kpc) annotation(
     Placement(visible = true, transformation(origin = {-60, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

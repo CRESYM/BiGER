@@ -49,17 +49,19 @@ model GridFollowingControl
   parameter Types.PerUnit iqConv0Pu;
   parameter Types.PerUnit udPcc0Pu;
   parameter Types.PerUnit uqPcc0Pu;
+  parameter Types.PerUnit udConvRef0Pu;
+  parameter Types.PerUnit uqConvRef0Pu;
   
   Dynawo.Electrical.Controls.PLL.PLL pll(Ki = KiPLL, Kp = KpPLL, OmegaMinPu = 0.5, OmegaMaxPu = 1.5, u0Pu = uPcc0Pu) annotation(
     Placement(visible = true, transformation(origin = {-70, 130}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  Dynawo.Electrical.Controls.Converters.BaseControls.ActivePowerLoop activePowerLoop(Kpp = Kpp, Kip = Kip, InomPu= InomPu, Tlpf= Tlpf, T=T, didt_min=didt_min, didt_max=didt_max, PGenRef0Pu= PGenRef0Pu, PGen0Pu=PGen0Pu, iqConv0Pu=iqConv0Pu) annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.ActivePowerLoop activePowerLoop(Kpp = Kpp, Kip = Kip, InomPu= InomPu, Tlpf= Tlpf, T=T, didt_min=didt_min, didt_max=didt_max, PGenRef0Pu= PGenRef0Pu, PGen0Pu=PGen0Pu, idConv0Pu=idConv0Pu, iqConv0Pu=iqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-10, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
  
   Dynawo.Electrical.Controls.Converters.BaseControls.ReactivePowerLoop reactivePowerLoop(Kpv=Kpv , Kiv=Kiv , Tlpf=Tlpf , InomPu= InomPu, IP0Pu= IP0Pu, UConv0Pu=UConv0Pu, UConvRef0Pu=UConvRef0Pu, QGen0Pu=QGen0Pu, QGenRef0Pu=QGenRef0Pu, VQControlSwicth0=VQControlFlag) annotation(
     Placement(visible = true, transformation(origin = {-10, -94}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   
-  Dynawo.Electrical.Controls.Converters.BaseControls.CurrentLoopGFL currentLoopGFL(Kpc= Kpc, Kic=Kic, L=L, R=R, omegaPLL0Pu= omegaPLL0Pu, udPcc0Pu=udPcc0Pu, uqPcc0Pu=uqPcc0Pu, idConv0Pu=idConv0Pu, iqConv0Pu=iqConv0Pu, ratioTr=ratioTr ) annotation(
+  Dynawo.Electrical.Controls.Converters.BaseControls.CurrentLoopGFL currentLoopGFL(Kpc= Kpc, Kic=Kic, L=L, R=R, omegaPLL0Pu= omegaPLL0Pu, udPcc0Pu=udPcc0Pu, uqPcc0Pu=uqPcc0Pu, idConv0Pu=idConv0Pu, iqConv0Pu=iqConv0Pu, ratioTr=ratioTr, udConvRef0Pu=udConvRef0Pu, uqConvRef0Pu=uqConvRef0Pu ) annotation(
     Placement(visible = true, transformation(origin = {60, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   
   Modelica.Blocks.Continuous.Integrator integrator(k = omegaNom, y_start = Modelica.ComplexMath.arg(uPcc0Pu)) annotation(
