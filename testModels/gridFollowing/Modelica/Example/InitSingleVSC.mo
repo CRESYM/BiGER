@@ -11,7 +11,7 @@ model InitSingleVSC_v4
   parameter Types.AngularVelocity omegaNom = 2*Constants.pi*fNom "Nominal System angular frequency";
   /* Converter Parameters */
   parameter Types.ApparentPowerModule SNom = 1200 "base apparent power in MVA";
-  parameter Types.PerUnit ratioTr = 1 "Connection transformer ratio in p.u";
+  parameter Types.PerUnit ratioTr = 1.02 "Connection transformer ratio in p.u";
   parameter Types.PerUnit R = 0.005 "Transformer resistance in pu (base UNom, SNom)";
   parameter Types.PerUnit L = 0.15 "Transformer inductance in pu (base UNom, SNom)";
   parameter Types.PerUnit Rc = 0.005 "resistance value from converter terminal to PCC in pu (base UNom, SNom)";
