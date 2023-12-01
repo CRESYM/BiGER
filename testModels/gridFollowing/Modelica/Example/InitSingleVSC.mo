@@ -1,6 +1,6 @@
-within Dynawo.Examples.GridFollowing_v4;
+within Dynawo.Examples.GridFollowing_v5;
 
-model InitSingleVSC_v4
+model InitSingleVSC_v5
   import Modelica;
   import Modelica.Constants;
   import Dynawo;
@@ -48,12 +48,12 @@ model InitSingleVSC_v4
   parameter Types.PerUnit XInfPu = 0.12 "Reactance in pu (base UNom, SNom)";
   /* Powerflow data */
   /* Converter Bus
-           Bus A: V= 1pu , theta = 0.093887 rad, P= 1000 MW, Q= 47 Mvar */
+             Bus A: V= 1pu , theta = 0.093887 rad, P= 1000 MW, Q= 47 Mvar */
   parameter Types.ComplexVoltagePu uPcc0Pu = ComplexMath.fromPolar(1, 0.093887) "Start value of complex voltage at converter PCC in pu (base UNom)";
   parameter Types.ActivePowerPu PGen0Pu = 1000/SNom "Start value of converter generated active power in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QGen0Pu = 47/SNom "Start value of converter generated reactive power in pu (base SNom) (generator convention)";
   /* Infinite Bus
-           Bus B: V= 1pu , theta = 0 rad, P=-1000 MW, Q= +47 Mvar */
+             Bus B: V= 1pu , theta = 0 rad, P=-1000 MW, Q= +47 Mvar */
   parameter Types.ComplexVoltagePu uInf0Pu = ComplexMath.fromPolar(1, 0) "Start value of complex voltage at Infinite Bus in pu (base UNom)";
   parameter Types.ActivePowerPu PInf0Pu = -1000/SNom "Start value of infinite bus injected active power in pu (base SNom) (generator convention)";
   parameter Types.ReactivePowerPu QInf0Pu = 47/SNom "Start value of infinite bus injected reactive power in pu (base SNom) (generator convention)";
@@ -64,7 +64,7 @@ model InitSingleVSC_v4
   parameter Types.ComplexVoltagePu uConv0Pu = (uPcc0Pu/ratioTr) + iPcc0Pu*ratioTr*Complex(R, Xc);
   parameter Types.ComplexCurrentPu iConv0Pu = iPcc0Pu*ratioTr;
   parameter Types.PerUnit UConv0Pu = ComplexMath.'abs'(uConv0Pu);
-//    parameter Types.PerUnit UConv0Pu =sqrt(udConv0Pu*udConv0Pu + uqConv0Pu*uqConv0Pu);
+  //    parameter Types.PerUnit UConv0Pu =sqrt(udConv0Pu*udConv0Pu + uqConv0Pu*uqConv0Pu);
   parameter Types.PerUnit omegaPLL0Pu = 1;
   parameter Types.PerUnit thetaPLL0Pu = ComplexMath.arg(uPcc0Pu);
   parameter Types.PerUnit udPcc0Pu = cos(thetaPLL0Pu)*uPcc0Pu.re + sin(thetaPLL0Pu)*uPcc0Pu.im;
@@ -75,8 +75,8 @@ model InitSingleVSC_v4
   parameter Types.PerUnit uqConv0Pu = -sin(thetaPLL0Pu)*uConv0Pu.re + cos(thetaPLL0Pu)*uConv0Pu.im;
   parameter Types.PerUnit idConv0Pu = ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.im;
   parameter Types.PerUnit iqConv0Pu = -ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.im;
-//  parameter Types.PerUnit udConvRef0Pu = udConv0Pu;
-//  parameter Types.PerUnit uqConvRef0Pu = uqConv0Pu;
+  //  parameter Types.PerUnit udConvRef0Pu = udConv0Pu;
+  //  parameter Types.PerUnit uqConvRef0Pu = uqConv0Pu;
   parameter Types.PerUnit udConvRef0Pu = udPcc0Pu/ratioTr + R*idPcc0Pu*ratioTr - omegaPLL0Pu*L*iqPcc0Pu*ratioTr;
   parameter Types.PerUnit uqConvRef0Pu = uqPcc0Pu/ratioTr + R*iqPcc0Pu*ratioTr + omegaPLL0Pu*L*idPcc0Pu*ratioTr;
   /* Infinite bus */
@@ -84,10 +84,10 @@ model InitSingleVSC_v4
   parameter Types.ComplexVoltagePu uTerminal0Pu = Complex(1, 0) "Infinite bus constant voltage module in pu (base UNom)";
   parameter Types.PerUnit UBus0Pu = ComplexMath.'abs'(Complex(RInfPu, XInfPu)*iTerminal0Pu + uTerminal0Pu) "Initial complex voltage at terminal in pu (base UNom)";
   parameter Types.PerUnit UPhaseBus0 = ComplexMath.arg(Complex(RInfPu, XInfPu)*iTerminal0Pu + uTerminal0Pu) "Infinite bus constant voltage angle in rad";
-  parameter Types.PerUnit omegaRef0 = omegaNom;
+  parameter Types.PerUnit omegaRef0Pu = 1;
   parameter Types.PerUnit PGenRef0Pu = PGen0Pu;
   parameter Types.PerUnit QGenRef0Pu = QGen0Pu;
   parameter Types.PerUnit UConvRef0Pu = UConv0Pu;
   annotation(
     Placement(visible = true, transformation(origin = {0, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-end InitSingleVSC_v4;
+end InitSingleVSC_v5;
