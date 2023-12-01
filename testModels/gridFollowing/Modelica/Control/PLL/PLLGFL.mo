@@ -107,5 +107,5 @@ equation
 </body></html>"),
     Diagram(coordinateSystem(extent = {{-140, -100}, {140, 100}}, initialScale = 1, grid = {1, 1})),
     __OpenModelica_commandLineOptions = "",
-    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-31, 8}, extent = {{-49, 72}, {111, -88}}, textString = "PLL"), Text(origin = {131, 71}, extent = {{-23, 13}, {49, -25}}, textString = "omegaPLLPu", fontSize = 16), Text(origin = {-141, -27}, extent = {{-31, 17}, {37, -19}}, textString = "omegaRef"), Text(origin = {-141, 79}, extent = {{3, -3}, {37, -19}}, textString = "uPu"), Text(origin = {129, -29}, extent = {{-23, 13}, {49, -25}}, textString = "thetaPLLPu", fontSize = 16)}, coordinateSystem(initialScale = 0.1, extent = {{-100, -100}, {100, 100}})));
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-31, 8}, extent = {{-49, 72}, {111, -88}}, textString = "PLLGFL"), Text(origin = {131, 71}, extent = {{-23, 13}, {49, -25}}, textString = "omegaPLLPu", fontSize = 16), Text(origin = {-141, -27}, extent = {{-31, 17}, {37, -19}}, textString = "omegaRef"), Text(origin = {-141, 79}, extent = {{3, -3}, {37, -19}}, textString = "uPu"), Text(origin = {129, -29}, extent = {{-23, 13}, {49, -25}}, textString = "thetaPLLPu", fontSize = 16)}, coordinateSystem(initialScale = 0.1, extent = {{-100, -100}, {100, 100}})));
 end PLLGFL;

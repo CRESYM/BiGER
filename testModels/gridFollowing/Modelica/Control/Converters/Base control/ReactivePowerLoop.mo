@@ -8,15 +8,15 @@ model ReactivePowerLoop_v4
   parameter Types.PerUnit Kiv;
   parameter Types.Time Tlpf "Time constant of low pass filter";
 
-  //Initial values
+//Initial values
   parameter Types.PerUnit UConvRef0Pu;
   parameter Types.PerUnit UConv0Pu;
   parameter Types.PerUnit iqConv0Pu;
 
   Modelica.Blocks.Interfaces.RealInput UConvPu(start = UConv0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-151, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-151, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UConvRefPu(start = UConvRef0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqRefPu(start =iqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {150, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Kpv) annotation(
