@@ -142,4 +142,5 @@
     <iidm:extension id="_BUS__C_VL">
       <iidm:slackTerminal id="_GEN__3_EQUIV" />
     </iidm:extension>
+
 </iidm:network>
