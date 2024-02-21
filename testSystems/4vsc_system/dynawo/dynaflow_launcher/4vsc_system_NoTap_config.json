@@ -1,0 +1,9 @@
+{
+  "dfl-config": {
+    "OutputDir": "./4vsc_system_NoTap",
+    "AutomaticSlackBusOn": false,
+    "InfiniteReactiveLimits": false,
+    "DsoVoltageLevel": 500,
+    "TfoVoltageLevel": 500
+  }
+}
