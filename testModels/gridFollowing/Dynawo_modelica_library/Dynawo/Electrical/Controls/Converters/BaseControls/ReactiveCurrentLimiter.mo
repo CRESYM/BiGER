@@ -9,8 +9,8 @@ model ReactiveCurrentLimiter
   parameter Types.PerUnit idConv0Pu;
   parameter Types.PerUnit iqConv0Pu;
 
-  Modelica.Blocks.Interfaces.RealInput idConvPu(start = idConv0Pu) annotation(
-    Placement(transformation(origin = {-151, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
+//  Modelica.Blocks.Interfaces.RealInput idConvPu(start = idConv0Pu) annotation(
+//    Placement(transformation(origin = {-151, 0}, extent = {{-10, -10}, {10, 10}}), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Math.Gain gain1(k = -1) annotation(
     Placement(transformation(origin = {119, -30}, extent = {{-10, -10}, {10, 10}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y = (InomPu^2 - idConv0Pu^2)^0.5) annotation(

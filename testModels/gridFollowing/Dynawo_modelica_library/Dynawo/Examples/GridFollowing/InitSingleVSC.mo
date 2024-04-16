@@ -25,18 +25,18 @@ model InitSingleVSC
   parameter Types.Time Tlpf = 0.0033 "Time constant of low pass filter";
   parameter Types.PerUnit Kpp = 0.0333 "Proportional gain of the active power loop";
   parameter Types.PerUnit Kip = 10 "Integral gain of the active power loop";
-  parameter Types.Time Trlim = 0.002 "Time constant of Id limitting loop";
+  parameter Types.Time Trlim = 0.002/1000 "Time constant of Id limitting loop";
   parameter Types.Frequency didt_min = -999 "Minimum of ramp rate limiter in Id limitting loop";
   parameter Types.Frequency didt_max = 10 "Maximum of ramp rate limiter in Id limitting loop";
   parameter Types.PerUnit Kpv = 0.1667 "Proportional gain of the reactive power loop";
   parameter Types.PerUnit Kiv = 50 "Integral gain of the reactive power loop";
   parameter Types.Time Tpll = 0.1 "Time constant of PLL to calculate KpPLL and kiPLL (Tau)";
   parameter Types.PerUnit KpPLL = 10/(omegaNom*Tpll);
+  parameter Types.PerUnit KiPLL = 25/(omegaNom*(Tpll^2));
+  parameter Types.PerUnit Vpllb = 0.4 "PLL Hysteresis lower limit";
+  parameter Types.PerUnit Vpllu = 0.5 "PLL Hysteresis upper limit";
   parameter Types.PerUnit OmegaMaxPu = 1.5;
   parameter Types.PerUnit OmegaMinPu = 0.5;
-  parameter Types.PerUnit KiPLL = 25/(omegaNom*(Tpll^2));
-  parameter Types.PerUnit Vpllb = 0.4 "vpll1 in the block diagrams: Hysteresis lower limit";
-  parameter Types.PerUnit Vpllu = 0.5 "vpll2 in the block diagrams : Hysteresis upper limit";
   parameter Types.PerUnit Vs1 = 0.01 "For dynamic voltage support (not used because DVS not modeled)";
   parameter Types.PerUnit Vs2 = 0.005 "For dynamic voltage support (not used because DVS not modeled)";
   parameter Boolean VQControlFlag = true "control strategy: voltage (=true) and reactive power (=false)";
@@ -85,6 +85,8 @@ model InitSingleVSC
   parameter Types.PerUnit iqConv0Pu = -ratioTr*sin(thetaPLL0Pu)*iPcc0Pu.re + ratioTr*cos(thetaPLL0Pu)*iPcc0Pu.im;
   parameter Types.PerUnit udConvRef0Pu = udConv0Pu;
   parameter Types.PerUnit uqConvRef0Pu = uqConv0Pu;
+  parameter Types.PerUnit PConvPu = (udConv0Pu * idConv0Pu + uqConv0Pu * iqConv0Pu)*SNom;
+  parameter Types.PerUnit QConvPu = (uqConv0Pu * idConv0Pu - udConv0Pu * iqConv0Pu)*SNom;
   //  parameter Types.PerUnit udConvRef0Pu = udPcc0Pu/ratioTr + R*idPcc0Pu*ratioTr - omegaPLL0Pu*L*iqPcc0Pu*ratioTr;
   //  parameter Types.PerUnit uqConvRef0Pu = uqPcc0Pu/ratioTr + R*iqPcc0Pu*ratioTr + omegaPLL0Pu*L*idPcc0Pu*ratioTr;
   /* Infinite bus */
