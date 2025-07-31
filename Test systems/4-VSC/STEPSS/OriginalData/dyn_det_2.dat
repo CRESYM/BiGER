@@ -1,0 +1,61 @@
+FNOM 50 ;
+
+SHUNT E E -300. 1 ;
+SHUNT F F -200. 1 ;
+
+# WP1, WP2 AND HDVC1 IN GRID FOLLOWING MODE (detailed model)
+
+#              	  name       bus    FP    FQ   P    Q     R      L      r     Snom    Rc      Xc      Kp     Ki   Tlpf     Kpp     Kip   Trlim  dPdt_min dPdt_max   Kpv    Kiv    
+INJEC  GFOL_det   WP1         E     1.    1.   0.   0.   0.005  0.12   1.04   2400.  0.005   0.12   0.4584   6.  0.0033   0.0333   10.   0.002    -999.     0.5    0.0333  10.
+# Tpll   Vpllb  Vpllu   Imax    Vs1    Vs2    iq1max   vqswitch ;                                                      
+  0.10    0.4    0.5    1.0    -1000  -2000    1.0      0     ;
+  
+#              	  name       bus    FP    FQ   P    Q     R      L      r     Snom    Rc      Xc      Kp     Ki   Tlpf     Kpp     Kip   Trlim  dPdt_min dPdt_max   Kpv    Kiv 
+INJEC  GFOL_det   WP2         F     1.    1.   0.   0.   0.005  0.12   1.00   2400.  0.005   0.12   0.4584   6.  0.0033   0.0333   10.   0.002    -999.     0.5    0.1667  50.  
+# Tpll   Vpllb  Vpllu   Imax    Vs1    Vs2    iq1max   vqswitch ;                                                       
+  0.10    0.4    0.5    1.0    -1000  -2000    1.0      1     ;
+  
+#              	  name       bus    FP    FQ   P    Q     R      L      r     Snom    Rc      Xc      Kp     Ki   Tlpf     Kpp     Kip   Trlim  dPdt_min dPdt_max  Kpv     Kiv    
+INJEC  GFOL_det   HVDC1       A     1.    1.   0.   0.   0.005  0.15   1.00   1200.  0.005   0.15   0.5730   6.  0.0033   0.0333   10.   0.002    -999.    10.0    0.1667  50.  
+# Tpll   Vpllb  Vpllu   Imax    Vs1    Vs2    iq1max   vqswitch ;                                                      
+  0.10    0.4    0.5    1.0    -1000  -2000    1.0      1     ;
+
+# HVDC2 IN GRID FOLLOWING MODE (detailed model)
+
+#              	  name       bus    FP    FQ   P    Q     R      L      r     Snom    Rc      Xc      Kp      Ki   Tlpf      Kpp     Kip   Trlim  dPdt_min dPdt_max  Kpv    Kiv    
+INJEC  GFOL_det   HVDC2       B     1.    1.   0.   0.   0.005  0.15   0.99   1700.  0.005   0.15   0.5730   6.  0.0033   0.0333   10.   0.002    -10.    10.0    0.1667  50. 
+#  Tpll   Vpllb  Vpllu  Imax    Vs1    Vs2    iq1max   vqswitch ;                                                      
+  0.10    0.4    0.5    1.0    -1000  -2000    1.0      1     ;
+ 
+
+# HVDC2 IN GRID FORMING MODE
+
+#                 name     bus    FP    FQ    P    Q    Rpr     Lpr     r    Snom    H    D     Kp     Tpll    R    Imax   rho     
+# INJEC  GFOR3     HVDC2     B     1.    1.    0.   0.  0.005   0.15   0.99   1700.   5.  300.   0.0    0.10   999   1.00   0.000 ;    Kp=0.01592  D=300.
+
+#                 name     bus    FP    FQ    P    Q    Rpr    Lpr     r     Snom    H    D     Kp     Tpll    R    Imax    Kcs    rho     
+#INJEC  GFOR_det  HVDC2     B     1.    1.    0.   0.  0.005   0.15   0.99   1700.   5.  300.   0.0    0.10   999.  1.00    2.05   0.001 ;    Kp=0.01592  D=300.
+
+#                 name     bus    FP    FQ    P    Q    Rpr    Lpr     r     Snom    H     D    Kp     Tpll    R    Imax    Kcs    rho    Tmv   
+#INJEC  GFOR_T    HVDC2     B     1.    1.    0.   0.  0.005   0.15   1.04   1700.   5.  300.   0.0    0.10   999.  1.00    2.05   0.001  0.001 ;    Kp=0.01592  D=300.  Kcs=2.05  
+
+# Thévenin equivalent
+
+#INJEC THEVEQ  name   bus  FP  FQ   P    Q    Ssc
+#INJEC  THEVEQ  EQUIV   C   1.  1.   0.   0.  20000. ;
+INJEC  THEVEQ  EQUIV   C   1.  1.   0.   0.  2200. ;
+
+# Load
+
+#INJEC vfd_load  Load_C   C  1. 1. 0. 0. 0. 1. 2.0 0. 0. 0. 0. 1. 2.0 0. 0. 0.  0. 0.0 0 0.10 ;
+#INJEC vfd_load  Load_C   C  1. 1. 0. 0. 0. 1. 0.0 0. 0. 0. 0. 1. 0.0 0. 0. 0.  0. 0.0 0 0.10 ;
+
+# Additional STATCOM
+
+#                   name     bus    FP    FQ     P    Q    Rpr     Lpr    r     Snom    H      D    Kp    Tpll    R     Imax    Kcs    rho      
+#INJEC  GFOR_det   STATCOM    C     0.    0.     0.   0.  0.005   0.15   1.00   100.   0.01   300.  0.    0.05   999.   1.00   2.05   0.001 ;
+
+# Current source for Thevenin equivalent identification
+
+#INJEC  cur_injec   name    bus   FP   FQ    P    Q    dI
+#INJEC   cur_injec  source    A    1.   1.    0.   0.   0.1 ;

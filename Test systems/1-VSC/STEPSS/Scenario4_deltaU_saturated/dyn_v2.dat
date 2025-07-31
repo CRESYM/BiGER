@@ -1,0 +1,12 @@
+FNOM 50 ;
+
+# HVDC1 IN GRID FOLLOWING MODE
+
+#              	  name       bus    FP    FQ   P    Q     R      L      r     Snom    Rc      Xc      Kp     Ki   Tlpf     Kpp    Kip   Trlim  dPdt_min dPdt_max  Kpv     Kiv    
+INJEC  GFOL_det   HVDC1       A     1.    1.   0.   0.   0.005  0.15   1.02   1200.  0.005   0.15   0.5730   6.  0.0033   0.0333   10.   0.002    -999.    10.    0.1667  50.  
+# tau   Vpllb  Vpllu   Imax    Vs1    Vs2    iq1max   vqswitch ;                                                      
+  0.10    0.4    0.5    1.0   -1000  -2000    1.0        1     ;
+     
+# Thévenin equivalent
+
+INJEC THEVEQ  EQUIV  B  1. 1. 0. 0. 10000. ;

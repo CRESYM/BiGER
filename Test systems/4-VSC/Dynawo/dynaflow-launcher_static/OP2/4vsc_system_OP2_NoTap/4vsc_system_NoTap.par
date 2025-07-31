@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <macroParameterSet id="macro_signalNGeneratorFixedPRectangular">
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PMax" origData="IIDM" origName="pMax"/>
+    <reference type="DOUBLE" name="generator_PMin" origData="IIDM" origName="pMin"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="pMax_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="targetP_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_QMax" origData="IIDM" origName="qMax"/>
+    <reference type="DOUBLE" name="generator_QMin" origData="IIDM" origName="qMin"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
+    <par name="generator_KGover" type="DOUBLE" value="0"/>
+  </macroParameterSet>
+  <macroParameterSet id="macro_signalNGeneratorRectangular">
+    <reference type="DOUBLE" name="generator_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="generator_PMax" origData="IIDM" origName="pMax"/>
+    <reference type="DOUBLE" name="generator_PMin" origData="IIDM" origName="pMin"/>
+    <reference type="DOUBLE" name="generator_PNom" origData="IIDM" origName="pMax_pu"/>
+    <reference type="DOUBLE" name="generator_PRef0Pu" origData="IIDM" origName="targetP_pu"/>
+    <reference type="DOUBLE" name="generator_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="generator_QMax" origData="IIDM" origName="qMax"/>
+    <reference type="DOUBLE" name="generator_QMin" origData="IIDM" origName="qMin"/>
+    <reference type="DOUBLE" name="generator_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="generator_UPhase0" origData="IIDM" origName="angle_pu"/>
+    <reference type="DOUBLE" name="generator_URef0Pu" origData="IIDM" origName="targetV_pu"/>
+    <par name="generator_KGover" type="DOUBLE" value="1"/>
+  </macroParameterSet>
+  <set id="4e969b1f-984b-5d16-a3a1-8f5d7efbb242">
+    <macroParSet id="macro_signalNGeneratorRectangular"/>
+  </set>
+  <set id="5edbd923-9e89-5e6e-b55c-72d3d3c04622">
+    <macroParSet id="macro_signalNGeneratorRectangular"/>
+  </set>
+  <set id="86406a09-8d14-5558-bb93-deb6c19a5074">
+    <macroParSet id="macro_signalNGeneratorRectangular"/>
+  </set>
+  <set id="GenericRestorativeLoad">
+    <par name="load_Alpha" type="DOUBLE" value="1.5"/>
+    <par name="load_Beta" type="DOUBLE" value="2.5"/>
+    <par name="load_UDeadBandPu" type="DOUBLE" value="0.01"/>
+    <par name="load_UMax0Pu" type="DOUBLE" value="1.1499999999999999"/>
+    <par name="load_UMin0Pu" type="DOUBLE" value="0.84999999999999998"/>
+    <par name="load_tFilter" type="DOUBLE" value="10"/>
+    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p0_pu"/>
+    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q0_pu"/>
+    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="da997c02-8f60-5146-a8fe-2cca7aef0276">
+    <macroParSet id="macro_signalNGeneratorRectangular"/>
+  </set>
+  <set id="feacc9d1-acdd-5be4-b795-5ccdd329e9ca">
+    <macroParSet id="macro_signalNGeneratorFixedPRectangular"/>
+  </set>
+</parametersSet>

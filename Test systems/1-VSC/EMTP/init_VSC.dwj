@@ -1,0 +1,96 @@
+function get_Init_LF(NodeName) {
+//project_dir  =get_project_folder_name(); //makes it global
+//designfilepath=set_design_path(); //makes it global, includes the / at the end
+parseScriptFile('make_file_name.dwj');
+var lf_file_name=make_file_name('_lf.html')//_lf.html//'ss.html'
+writeln('Ouverture du fichier : '+lf_file_name)
+
+//var lf_file_name='E:/Documents/Travail/Cours/RTE/reseau_AC_two_inverter_pj/reseau_AC_two_inverter_lf.html'
+if(lf_file_name!=null) {
+	writeln('Ouverture du fichier'+lf_file_name)
+	datafile = SPFile();
+    datafile.fullName(lf_file_name);
+    datastate=datafile.openRead();
+    //the file could be not available
+    if( datastate){
+     data     =datafile.readText(); //_The entire file contents are now in data
+    }else{
+     alert('Le fichier de résultats du load flow est indisponible');
+     halt();
+    }
+        //*Start searching data---------------------------------------------------------------------------------------------
+    //The current section is tagged as ID=TransmittedPowerTable
+    //Look into solution frequencies
+    //
+    //<H1>Solution frequency: 360                             </h1>
+    freqloc=0 //global variable
+    var istop=0
+    var ib=1
+   
+        freqloc= data.indexOf('<H1>Solution frequency:',istop);
+             
+        if( freqloc == -1){
+          writeln('Erreur lors de la visualisation des résultats du régime permanent: la fréquence fondamentale n' +"'"+ 'est pas accessible !' );
+          datafile.close();
+          halt();
+        }
+
+    //close dataweb
+    datafile.close();
+    
+    Data2search='>'+NodeName+'<';
+    istart=data.indexOf(Data2search,0);
+    //_not found condition may occur
+	if( istart==-1){
+		alert('View Load-Flow Error: Unable to locate '+MyBUSname+phaseChar+' in this design');
+        halt();
+    }
+    //Now get the entire line
+    istop=data.indexOf('\n',istart);
+
+    var found_data=data.substring(istart,istop);
+    //writeln(found_data);
+    //var reg=/<\/td><td>/gi;
+    var reg=/<table>/gi;
+    var fixed_data=found_data.replace(reg,'');
+    
+    var reg=/<\/table>/gi;
+    fixed_data=fixed_data.replace(reg,'');
+
+    var reg=/<\/td><\/tr><tr><td>/gi;
+    fixed_data=fixed_data.replace(reg,',');
+    
+    var reg=/<\/td><td><tr><td>/gi;
+	fixed_data=fixed_data.replace(reg,',');
+	
+	var reg=/<\/td><\/tr><\/td><td>/gi;
+	fixed_data=fixed_data.replace(reg,',');
+	
+	var reg=/<\/td><\/tr><tr><td>/gi;
+	fixed_data=fixed_data.replace(reg,',');
+	
+	var reg=/<\/td><\/tr><\/td><\/tr>/gi;
+	fixed_data=fixed_data.replace(reg,',');
+	
+	var reg=/<\/td><td>/gi;
+	fixed_data=fixed_data.replace(reg,',');
+
+    //now split the data to get
+    fixed_data=fixed_data.split(',');
+    var BusName   =fixed_data[0].replace('>','');
+    var Voltage0  =fixed_data[2];
+    var Theta0    =fixed_data[3];
+    var P0        =fixed_data[8];
+    var Q0        =fixed_data[9];
+   
+    
+    //writeln(fixed_data);
+    
+    //writeln('BusName :'+BusName+', V0 = '+Voltage0+'kV LLRMS, Theta0 = '+Theta0+'°, P0 = '+P0+' W, Q0 = '+Q0+' VAR');
+    
+    return {V0:Voltage0,Theta0:Theta0,P0:P0,Q0:Q0}
+} //else
+//{
+	//return {V0:320000,Theta0:0,P0:0,Q0:0}
+//}
+}

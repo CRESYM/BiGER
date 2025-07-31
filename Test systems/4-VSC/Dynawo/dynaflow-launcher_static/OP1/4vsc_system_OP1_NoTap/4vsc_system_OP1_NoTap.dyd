@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:macroConnector id="GEN_NETWORK_CONNECTOR">
+    <dyn:connect var1="generator_terminal" var2="@STATIC_ID@@NODE@_ACPIN"/>
+    <dyn:connect var1="generator_switchOffSignal1" var2="@STATIC_ID@@NODE@_switchOff"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_SIGNALN_CONNECTOR">
+    <dyn:connect var1="generator_N" var2="signalN_N"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="GEN_VRREMOTE_CONNECTOR">
+    <dyn:connect var1="generator_NQ" var2="vrremote_NQ"/>
+    <dyn:connect var1="generator_limUQDown" var2="vrremote_limUQDown_@INDEX@_"/>
+    <dyn:connect var1="generator_limUQUp" var2="vrremote_limUQUp_@INDEX@_"/>
+  </dyn:macroConnector>
+  <dyn:macroConnector id="LOAD_NETWORK_CONNECTOR">
+    <dyn:connect var1="Ui_value" var2="@STATIC_ID@@NODE@_ACPIN_V_im"/>
+    <dyn:connect var1="Ur_value" var2="@STATIC_ID@@NODE@_ACPIN_V_re"/>
+    <dyn:connect var1="Ii_value" var2="@STATIC_ID@@NODE@_ACPIN_i_im"/>
+    <dyn:connect var1="Ir_value" var2="@STATIC_ID@@NODE@_ACPIN_i_re"/>
+    <dyn:connect var1="switchOff1_value" var2="@STATIC_ID@@NODE@_switchOff_value"/>
+  </dyn:macroConnector>
+  <dyn:macroStaticReference id="GeneratorStaticRef">
+    <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
+    <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
+    <dyn:staticRef var="generator_state" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:macroStaticReference id="LoadRef">
+    <dyn:staticRef var="PPu_value" staticVar="p"/>
+    <dyn:staticRef var="QPu_value" staticVar="q"/>
+    <dyn:staticRef var="state_value" staticVar="state"/>
+  </dyn:macroStaticReference>
+  <dyn:blackBoxModel id="Model_Signal_N" lib="SignalN"/>
+  <dyn:blackBoxModel id="_GEN__1_HVDC" staticId="_GEN__1_HVDC" lib="GeneratorPVSignalN" parFile="4vsc_system_OP1_NoTap.par" parId="da997c02-8f60-5146-a8fe-2cca7aef0276">
+    <dyn:macroStaticRef id="GeneratorStaticRef"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_GEN__2_HVDC" staticId="_GEN__2_HVDC" lib="GeneratorPVSignalN" parFile="4vsc_system_OP1_NoTap.par" parId="4e969b1f-984b-5d16-a3a1-8f5d7efbb242">
+    <dyn:macroStaticRef id="GeneratorStaticRef"/>
+  </dyn:blackBoxModel>
+  <dyn:blackBoxModel id="_GEN__5_WP2" staticId="_GEN__5_WP2" lib="GeneratorPVSignalN" parFile="4vsc_system_OP1_NoTap.par" parId="5edbd923-9e89-5e6e-b55c-72d3d3c04622">
+    <dyn:macroStaticRef id="GeneratorStaticRef"/>
+  </dyn:blackBoxModel>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_GEN__1_HVDC" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_GEN__1_HVDC" id2="Model_Signal_N" index2="1"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_GEN__2_HVDC" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_GEN__2_HVDC" id2="Model_Signal_N" index2="2"/>
+  <dyn:macroConnect connector="GEN_NETWORK_CONNECTOR" id1="_GEN__5_WP2" id2="NETWORK"/>
+  <dyn:macroConnect connector="GEN_SIGNALN_CONNECTOR" id1="_GEN__5_WP2" id2="Model_Signal_N" index2="3"/>
+  <dyn:connect id1="Model_Signal_N" var1="signalN_thetaRef" id2="NETWORK" var2="_BUS__C_TN_phi_value"/>
+</dyn:dynamicModelsArchitecture>

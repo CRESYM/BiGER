@@ -1,0 +1,12 @@
+2024-03-05 15:28:24 | INFO |  ============================================================ 
+2024-03-05 15:28:24 | INFO |  DynaFlowLauncher v1.6.0
+2024-03-05 15:28:24 | INFO |   revision master-4824140
+2024-03-05 15:28:24 | INFO |  ============================================================ 
+2024-03-05 15:28:24 | INFO | processing network input file ./tests/biger/4vsc_system_OP1_NoTap.iidm and config file ./tests/biger/4vsc_system_OP1_NoTap_config.json for steady-state calculation
+2024-03-05 15:28:24 | INFO | slack node of id _BUS__C_TN found with origin 0 (0=file, 1=algorithm)
+2024-03-05 15:28:24 | INFO | exporting outputs files for 4vsc_system_OP1_NoTap
+2024-03-05 15:28:24 | INFO | end of files generation (wall-time: 0.001s)
+2024-03-05 15:28:24 | INFO | initializing 4vsc_system_OP1_NoTap simulation
+2024-03-05 15:28:24 | INFO | simulation 4vsc_system_OP1_NoTap ended successfully (wall-time: 0.046s)
+2024-03-05 15:28:24 | INFO |  ============================================================ 
+2024-03-05 15:28:24 | INFO | dynaFlowLauncher 4vsc_system_OP1_NoTap ended successfully (wall-time: 0.056s)

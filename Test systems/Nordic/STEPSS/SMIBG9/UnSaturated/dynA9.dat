@@ -1,0 +1,26 @@
+! 2-machine Nordic subsystem - OPERATING POINT A - DYNAMIC DATA
+
+FNOM 50. ;
+
+SHUNT SH4071 4071 -400. 1 ;
+
+# SYNC_MACH       FP FQ  P     Q      SNOM  Pnom H  D  IBRATIO
+#                  XT/RL  Xl   Xd   X'd    X"d   Xq    X'q  X"q  m     n    Ra    T'do T"do T'qo T"qo
+#             EXC GENERIC1   IFLIM    d   f   S   K1    K2   L1    L2   G   TA  TB  TE   L3  L4
+#                            SPEEDIN  KPSS  Tw      T1    T2     T3    T4   DVMIN  DVMAX
+#             TOR CONSTANT ;
+#          or TOR HYDRO_GENERIC1 SIGMA   TP   Qv   KP    KI   TSM  LIMZDOT TW  ;
+
+SYNC_MACH g9  g9  1. 1.  0.  0.  1000. 950.  3. 0. 0.95
+                    XT   0.15  1.1  0.25   0.2   0.7   *   0.2  0.  6.0257  0.  5.00  0.05  *  0.1
+              EXC GENERIC1   1.8991 -0.1  0.  1.  100. -1. -11  10.  70.  10.  20. 0.1  0.  4.
+                                1    75.   15.    0.2    0.01     0.2    0.01    -0.1    0.1
+              TOR HYDRO_GENERIC1  0.04  2.0  0.  2.00  0.40  0.2    0.1   1.0 ;
+			  
+INJEC THEVEQ  EQUIV  g20  1. 1. 0. 0. 30000. ;			  
+
+#LOAD           inj_name bus_name FP FQ P Q  DP A1 alpha1 A2 alpha2 alpha3 DQ B1 beta1 B2 beta2 beta3 ;
+#INJEC vfd_load inj_name bus_name FP FQ P Q  DP A1 alpha1 A2 alpha2 alpha3 DQ B1 beta1 B2 beta2 beta3 Vinit Trest Vmin foption Tmes ; 
+                                                                                                       
+INJEC vfd_load L_71 71  1. 1. 0. 0. 0. 1. 1.0 0. 0. 0. 0. 1. 1.0 0. 0. 0.  0. 0.5 0 0.10 ;
+INJEC vfd_load L_72 72  1. 1. 0. 0. 0. 1. 1.0 0. 0. 0. 0. 1. 1.0 0. 0. 0.  0. 0.5 0 0.10 ;
